@@ -13,12 +13,15 @@ if os.geteuid() != 0:
     exit("Root permisson is required to operate on network interfaces. \nNow Aborting.")
 
 filename = "" # Your log file
+interface = "" # Your interface
+alarm_file = "" # Your audio file
+
 
 # Set logging structure
 logging.basicConfig(format='%(levelname)s: %(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', filename=filename, filemode="a", level=logging.DEBUG)
 # Read available network interfaces
 available_interfaces = netifaces.interfaces()
-interface = "" # Your interface
+
 # Check if specified interface is valid
 if not interface in available_interfaces:
     exit("Interface {} not available.".format(interface))
@@ -77,7 +80,7 @@ def issue_os_notification(title, content):
     s.call(['notify-send',title,content]) 
     # Audio file, substitute mpv and wave file with your choice
     null_output = open("/dev/null", 'w')
-    s.call(["mpv", "test.wav"], stdout=null_output, stderr=s.STDOUT) 
+    s.call(["mpv", alarm], stdout=null_output, stderr=s.STDOUT) 
 
 print("ARP Poisoning Detection Started. Any output is redirected to log file.")
 # Rely on scapy sniff function to do the hard job - sniffing packets.
