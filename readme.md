@@ -1,4 +1,4 @@
-Small fork from uuiuseclab's arpspoofdetect. 
+Small fork from uiuseclab's arpspoofdetect. 
 
 Changed features:
 
