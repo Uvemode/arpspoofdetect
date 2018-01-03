@@ -11,7 +11,7 @@ Changed features:
   
 Attention:
 
-Since the script must run as root, in order to obtain a notification with Gnome your must specify your username(non-root) and the DBUS_SESSION_BUS_ADDRESS at the subprocess call, which can be obtain at a shell with "echo $DBUS_SESSION_BUS_ADDRESS", then insert the path at the script, line 79.
+Since the script must run as root, in order to obtain a notification with Gnome your must specify your username(non-root) and the DBUS_SESSION_BUS_ADDRESS at the subprocess call, which can be obtain at a shell with "echo $DBUS_SESSION_BUS_ADDRESS".
 
 
 ARP Spoof Detect
