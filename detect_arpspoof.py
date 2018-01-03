@@ -14,7 +14,7 @@ if os.geteuid() != 0:
 
 filename = "" # Your log file
 interface = "" # Your interface
-alarm_file = "" # Your audio file
+alarm = "" # Your audio file
 
 
 # Set logging structure
