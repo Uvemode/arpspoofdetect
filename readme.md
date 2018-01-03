@@ -1,10 +1,12 @@
 Small fork from uuiuseclab's arpspoofdetect. 
 Changed features:
 
-  -Gnome notification
-  -Python 3 compatibility
-  -Does not ask input, log file and interface are hand-coded
-  -Plays custom .wav file as alarm to raise awareness
+  - Gnome notification.
+  - Python 3 compatibility.
+  - Does not ask input, log file and interface are hand-coded.
+  - Plays custom audio file as alarm to raise awareness. (I use mpv with .wav format)
+  
+  
 ARP Spoof Detect
 =========
 
