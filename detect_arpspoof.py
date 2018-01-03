@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import os, time, netifaces, sys, logging
 import subprocess as s
-import simpleaudio as sa
 from sys import platform
 from scapy.all import sniff
 
@@ -57,7 +56,7 @@ def check_spoof (source, mac, destination):
             # Check number of replies reaches threshold or not, and whether or not we have sent a notification for this MAC addr
             logging.error("ARP Poisoning Detected from MAC Address {}".format(mac)) # Logs the attack in the log file
             # Issue OS Notification
-            issue_os_notification("ARP Poisoning Detected", "Attack from {}.".format(mac))
+            issue_os_notification("ARP Poisoning Detected", "Attack from {}".format(mac))
             # Add to sent list to prevent repeated notifications.
             notification_issued.append(mac)
     else:
@@ -77,7 +76,8 @@ def packet_filter (packet):
 
 def issue_os_notification(title, content):
     # Gnome notification
-    s.call(['notify-send',title,content]) 
+    command = "sudo -u your_username DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=your_dbus_session_bus_address \'{}\' \'{}\'".format(title, content)
+    s.call([command], shell=True)
     # Audio file, substitute mpv and wave file with your choice
     null_output = open("/dev/null", 'w')
     s.call(["mpv", alarm], stdout=null_output, stderr=s.STDOUT) 
@@ -85,3 +85,4 @@ def issue_os_notification(title, content):
 print("ARP Poisoning Detection Started. Any output is redirected to log file.")
 # Rely on scapy sniff function to do the hard job - sniffing packets.
 sniff(filter = "arp", prn = packet_filter, store = 0)
+
