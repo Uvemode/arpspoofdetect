@@ -73,9 +73,12 @@ def packet_filter (packet):
         return check_spoof (source, source_mac, dest)
 
 def issue_os_notification(title, content):
-    s.call(['notify-send',title,content])
+    # Gnome notification
+    s.call(['notify-send',title,content]) 
+    # Audio file, substitute mpv and wave file with your choice
+    null_output = open("/dev/null", 'w')
+    s.call(["mpv", "test.wav"], stdout=null_output, stderr=s.STDOUT) 
 
 print("ARP Poisoning Detection Started. Any output is redirected to log file.")
 # Rely on scapy sniff function to do the hard job - sniffing packets.
 sniff(filter = "arp", prn = packet_filter, store = 0)
-
