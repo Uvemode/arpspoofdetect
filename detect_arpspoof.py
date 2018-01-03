@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os, time, netifaces, sys, logging
 import subprocess as s
+import smtplib
 from sys import platform
 from scapy.all import sniff
 
@@ -11,9 +12,9 @@ request_threshold = 10
 if os.geteuid() != 0:
     exit("Root permisson is required to operate on network interfaces. \nNow Aborting.")
 
-filename = "" # Your log file
-interface = "" # Your interface
-alarm = "" # Your audio file
+filename = "/var/log/arp_shield" # Your log file
+interface = "eth0" # Your interface
+alarm = "/home/uve/Documents/src/arp_shield/arp_alarm.wav" # Your audio file
 
 
 # Set logging structure
@@ -59,6 +60,8 @@ def check_spoof (source, mac, destination):
             issue_os_notification("ARP Poisoning Detected", "Attack from {}".format(mac))
             # Add to sent list to prevent repeated notifications.
             notification_issued.append(mac)
+            # Email to admin
+            mail_admin()
     else:
         if source in requests:
             requests.remove(source)
@@ -74,9 +77,28 @@ def packet_filter (packet):
     if operation == 'is-at':
         return check_spoof (source, source_mac, dest)
 
+def mail_admin():
+    sender = "" # Sender email
+    receiver = "" # Receiver email
+    subject = "ARP POISONING ALARM"
+    msg = "The network is currently under an ARP poisoning attack"
+    body = '\r\n'.join(['To: {}'.format(receiver), 'From: {}'.format(sender), 'Subject: {}'.format(subject), "{}".format(msg)])
+
+    try:
+        # Here you must configure the smtp server according to your service
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        server.login(sender, "your_password")
+        server.sendmail(sender, receiver, body)
+        logging.info("Email sent to the admin")
+    except as e:
+         logging.error("Couldn't send email to admin")
+         logging.error("{}".format(e))
+
 def issue_os_notification(title, content):
     # Gnome notification
-    command = "sudo -u your_username DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=your_dbus_session_bus_address \'{}\' \'{}\'".format(title, content)
+    command = "sudo -u uve DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send \'{}\' \'{}\'".format(title, content)
     s.call([command], shell=True)
     # Audio file, substitute mpv and wave file with your choice
     null_output = open("/dev/null", 'w')
