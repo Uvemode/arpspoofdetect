@@ -15,10 +15,6 @@ ARP Spoof Detect is a simple, lightweight ARP spoofing detector script that chec
 
 The script is easy to set up and safe to run in background. Once an ARP spoof attack is detected, a system notification will be sent to the user, and corresponding information will be logged in the log file.
 
-![Alt text](/Screenshots/script_running.png?raw=true "ARP Spoof Detect is running normally.")
-![Alt text](/Screenshots/system_notif1.png?raw=true "Mac Notification Center")
-![Alt text](/Screenshots/system_notif2.png?raw=true "Mac PopUp Notification")
-
 Features
 ----
   - Detect ARP reply messages in the network.
@@ -37,7 +33,6 @@ On Ubuntu machine, it is easy to install these two packages by doing
 ```
 apt-get install python-scapy python-netifaces
 ```
-On Mac OS X, use pip to install scapy and netifaces.
 
 How To Run
 ----
@@ -68,8 +63,6 @@ Once proper interfaces is selected, and no other error occurs, you will see
 ```
 ARP Spoofing Detection Started. Any output is redirected to log file.
 ```
-
-If you are running Mac OS X, when an ARP spoofing attack is in the network, you will receive a system notification alerting you to take proper actions. Otherwise, the attack will be logged in the log file. You may implement a listener that watches the file for the attack, should you need a realtime notification. 
 
 [Scapy]:http://www.secdev.org/projects/scapy/
 [Netifaces]:https://pypi.python.org/pypi/netifaces
