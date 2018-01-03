@@ -6,6 +6,7 @@ Changed features:
   - Python 3 compatibility.
   - Does not ask input, log file and interface are hand-coded.
   - Plays custom audio file as alarm to raise awareness. (I use mpv with .wav format)
+  - Sends an email to the admin
   
   
 Attention:
