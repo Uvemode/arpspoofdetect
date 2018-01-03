@@ -1,4 +1,4 @@
-Small fork from uiuseclab's arpspoofdetect. 
+Small fork from uiuseclab's arpspoofdetect for Gnome/linux. 
 
 Changed features:
 
