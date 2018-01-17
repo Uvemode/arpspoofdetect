@@ -12,9 +12,9 @@ request_threshold = 10
 if os.geteuid() != 0:
     exit("Root permisson is required to operate on network interfaces. \nNow Aborting.")
 
-filename = "/var/log/arp_shield" # Your log file
-interface = "eth0" # Your interface
-alarm = "/home/uve/Documents/src/arp_shield/arp_alarm.wav" # Your audio file
+filename = "" # Your log file
+interface = "" # Your interface
+alarm = "" # Your audio file
 
 
 # Set logging structure
@@ -98,7 +98,7 @@ def mail_admin():
 
 def issue_os_notification(title, content):
     # Gnome notification
-    command = "sudo -u uve DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send \'{}\' \'{}\'".format(title, content)
+    command = "sudo -u your_user DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send \'{}\' \'{}\'".format(title, content)
     s.call([command], shell=True)
     # Audio file, substitute mpv and wave file with your choice
     null_output = open("/dev/null", 'w')
